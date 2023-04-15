@@ -97,3 +97,19 @@
     border-radius: 50%;
     cursor: pointer;
 }
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+
+.info-image {
+    width: 80%;
+    color: white;
+    text-align: right;
+}

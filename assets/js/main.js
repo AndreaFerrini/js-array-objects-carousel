@@ -21,7 +21,7 @@ Aggiungere bottoni di start/stop e di inversione del meccanismo di autoplay.*/
 const images = [
     {
         image: 'img/01.webp',
-        title: 'Marvel\'s Spiderman Miles Morale',
+        title: 'Marvel\'s Spiderman Miles Morales',
         text: 'Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.',
     }, {
         image: 'img/02.webp',
@@ -41,3 +41,65 @@ const images = [
         text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.',
     }
 ];
+
+const path = "./assets/"
+
+const immaginePrincipale = document.querySelector(`.items`);
+const immaginiThumbs = document.querySelector(`.thumbs`)
+
+//indice per la posizione dell' immagine
+let indexImage = 0
+
+/*ciclo su array di elementi */
+images.forEach( (element, index ) => {
+
+    const { image, title, text } = element
+
+    if ( index === 0 ){
+
+        immaginePrincipale.innerHTML += `
+        
+        <div class="item active relative">
+            <img src="${path}${image}" alt="${title}">
+            <div class="absolute info-image">
+                <h2>${title}</h2>
+                <p>${text}</p>
+            </div>
+        </div>
+
+        `
+
+
+        immaginiThumbs.innerHTML += `
+    
+        <div class="thumb active">
+            <img src="${path}${image}" alt="">
+        </div>
+    
+        `  
+    } else {
+
+        immaginePrincipale.innerHTML += `
+        
+        <div class="item relative">
+            <img src="${path}${image}" alt="${title}">
+            <div class="absolute info-image">
+                <h2>${title}</h2>
+                <p>${text}</p>
+            </div>
+        </div>
+
+        `
+
+
+        immaginiThumbs.innerHTML += `
+    
+        <div class="thumb">
+            <img src="${path}${image}" alt="">
+        </div>
+    
+        `  
+
+    }
+
+})

@@ -20,86 +20,97 @@ Aggiungere bottoni di start/stop e di inversione del meccanismo di autoplay.*/
 
 const images = [
     {
-        image: 'img/01.webp',
-        title: 'Marvel\'s Spiderman Miles Morales',
-        text: 'Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.',
-    }, {
-        image: 'img/02.webp',
-        title: 'Ratchet & Clank: Rift Apart',
-        text: 'Go dimension-hopping with Ratchet and Clank as they take on an evil emperor from another reality.',
-    }, {
-        image: 'img/03.webp',
-        title: 'Fortnite',
-        text: "Grab all of your friends and drop into Epic Games Fortnite, a massive 100 - player face - off that combines looting, crafting, shootouts and chaos.",
-    }, {
-        image: 'img/04.webp',
-        title: 'Stray',
-        text: 'Lost, injured and alone, a stray cat must untangle an ancient mystery to escape a long-forgotten city',
-    }, {
-        image: 'img/05.webp',
-        title: "Marvel's Avengers",
-        text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.',
+      image: 'img/01.webp',
+      title: 'Marvel\'s Spiderman Miles Morale',
+      text: 'Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.',
+    },
+    {
+      image: 'img/02.webp',
+      title: 'Ratchet & Clank: Rift Apart',
+      text: 'Go dimension-hopping with Ratchet and Clank as they take on an evil emperor from another reality.',
+    },
+    {
+      image: 'img/03.webp',
+      title: 'Fortnite',
+      text: "Grab all of your friends and drop into Epic Games Fortnite, a massive 100 - player face - off that combines looting, crafting, shootouts and chaos.",
+    },
+    {
+      image: 'img/04.webp',
+      title: 'Stray',
+      text: 'Lost, injured and alone, a stray cat must untangle an ancient mystery to escape a long-forgotten city',
+    },
+    {
+      image: 'img/05.webp',
+      title: "Marvel's Avengers",
+      text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.',
     }
-];
-
-const path = "./assets/"
-
-const immaginePrincipale = document.querySelector(`.items`);
-const immaginiThumbs = document.querySelector(`.thumbs`)
-
-//indice per la posizione dell' immagine
-let indexImage = 0
-
-/*ciclo su array di elementi */
-images.forEach( (element, index ) => {
-
-    const { image, title, text } = element
-
-    if ( index === 0 ){
-
-        immaginePrincipale.innerHTML += `
-        
-        <div class="item active relative">
-            <img src="${path}${image}" alt="${title}">
-            <div class="absolute info-image">
-                <h2>${title}</h2>
-                <p>${text}</p>
-            </div>
-        </div>
-
-        `
-
-
-        immaginiThumbs.innerHTML += `
+  ];
+  
+  let pathImg = "assets/"
+  
+  const immagineVisualizzata = document.querySelector(".items")
+  const immagineThumb = document.querySelector(".thumbs")
+  
+  for( let i = 0; i < images.length; i++ ){
+    console.log(images[i]);
+  
+    let singoloOggetto = images[i]
+  
+    immagineVisualizzata.innerHTML += `
+                    <div class="item">
+                      <img src="${pathImg}${singoloOggetto.image}" alt="${singoloOggetto.title}">
+                      <div class="info">
+                        <h3>${singoloOggetto.title}</h3>
+                        <p>${singoloOggetto.text}</p>
+                      </div>
+                    </div>`
+  
+  
+    immagineThumb.innerHTML += `
+                    <div class="thumb">
+                      <img src="${pathImg}${singoloOggetto.image}" alt="${singoloOggetto.title}">
+                    </div>`
+  
+  }
+                    
+  let active = 0
+  
+  immagineVisualizzata.getElementsByClassName("item")[active].classList.add("active")
+  immagineThumb.getElementsByClassName("thumb")[active].classList.add("active")
+  
+  const prev = document.querySelector(".prev")
+  const next = document.querySelector(".next")
+  
+  prev.addEventListener("click", function(){
     
-        <div class="thumb active">
-            <img src="${path}${image}" alt="">
-        </div>
-    
-        `  
-    } else {
-
-        immaginePrincipale.innerHTML += `
-        
-        <div class="item relative">
-            <img src="${path}${image}" alt="${title}">
-            <div class="absolute info-image">
-                <h2>${title}</h2>
-                <p>${text}</p>
-            </div>
-        </div>
-
-        `
-
-
-        immaginiThumbs.innerHTML += `
-    
-        <div class="thumb">
-            <img src="${path}${image}" alt="">
-        </div>
-    
-        `  
-
+    if(active == 0){
+      active = immagineVisualizzata.getElementsByClassName("item").length - 1
+    }else{
+      active--;
     }
-
-})
+    
+    document.querySelector(".item.active").classList.remove("active")
+    immagineVisualizzata.getElementsByClassName("item")[active].classList.add("active")
+  
+    document.querySelector(".thumb.active").classList.remove("active")
+    immagineThumb.getElementsByClassName("thumb")[active].classList.add("active")
+  
+  
+  })
+  
+  next.addEventListener("click", function(){
+    
+    if(active == immagineVisualizzata.getElementsByClassName("item").length - 1){
+      active = 0
+    }else{
+      active++;
+    }
+    
+    document.querySelector(".item.active").classList.remove("active")
+    immagineVisualizzata.getElementsByClassName("item")[active].classList.add("active")
+  
+    document.querySelector(".thumb.active").classList.remove("active")
+    immagineThumb.getElementsByClassName("thumb")[active].classList.add("active")
+  
+  
+  })
